@@ -1,7 +1,18 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"runtime"
+)
 
 func main() {
-	fmt.Println("Hi~")
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	fmt.Println("Cpu num", runtime.GOMAXPROCS(0))
+	s := "Hello, world"
+	for i := 0; i < 100; i++ {
+		go func(n int) {
+			fmt.Println(s, n)
+		}(i)
+	}
+	fmt.Scanln()
 }
